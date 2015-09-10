@@ -28,7 +28,7 @@ if ($('.briefcitCell .media.well').length > 0) {
         }
       }
     });
-    var regex = /&m=([a-zA-Z])/g;
+    var regex = /&m=([a-zA-Z0-9])/g;
     var filter;
     while((filter = regex.exec(link)) !== null) {
       if (validMaterials.indexOf(filter[1]) === -1) {
@@ -56,7 +56,7 @@ if ($('.briefcitCell .media.well').length > 0) {
       spinner = '';
       materialSelected = true;
     } else {
-      link = advancedUrl.replace(/&m=[a-z]/, '&m=' + mat[Object.keys(mat)[0]]);
+      link = advancedUrl.replace(/&m=[a-z0-9]/, '&m=' + mat[Object.keys(mat)[0]]);
     }
     materialsList += '<li><a '+active+' href="' + link + '">' + Object.keys(mat)[0] + '';
     materialsList += '<span class="pull-right">' + spinner + '</span>';
@@ -119,11 +119,11 @@ if ($('.briefcitCell .media.well').length > 0) {
     $('#facet-materials a:not(.active)').each(function() {
       var $el = $(this);
       link = $el.attr('href');
-      materials.push(link.match(/&m=([a-z])/)[1]);
+      materials.push(link.match(/&m=([a-z0-9])/)[1]);
       if (link.indexOf('http://') === -1 && link.indexOf('https://') === -1) {
         link = window.location.origin + link;
       }
-      link = link.replace(/&m=[a-z]/, '');
+      link = link.replace(/&m=[a-z0-9]/, '');
     });
     $.ajax({
       url: '//library2.fairfield.edu/millennium/result_count.php',
@@ -172,15 +172,19 @@ if ($('.briefcitCell .media.well').length > 0) {
     if ($before.val()) {
       advancedUrl = advancedUrl + '&Db=' + $before.val();
     }
-    window.location = advancedUrl;
+    ga('send', 'event', 'facet', 'click', 'clear', {hitCallback: function() {
+      window.location = advancedUrl;
+    }});
   });
   
   $('#clear-facets').on('click', function() {
-    advancedUrl = advancedUrl.replace(/search~S[0-9]/, 'search~S1');
-    advancedUrl = advancedUrl.replace(/searchscope=[0-9]/, 'searchscope=1');
-    advancedUrl = advancedUrl.replace(/&Da=[0-9]{0,4}/, '');
-    advancedUrl = advancedUrl.replace(/&Db=[0-9]{0,4}/, '');
-     advancedUrl = advancedUrl.replace(/&m=[a-z]/, '');
-    window.location = advancedUrl;
+    ga('send', 'event', 'facet', 'click', 'clear', {hitCallback: function() {
+      advancedUrl = advancedUrl.replace(/search~S[0-9]/, 'search~S1');
+      advancedUrl = advancedUrl.replace(/searchscope=[0-9]/, 'searchscope=1');
+      advancedUrl = advancedUrl.replace(/&Da=[0-9]{0,4}/, '');
+      advancedUrl = advancedUrl.replace(/&Db=[0-9]{0,4}/, '');
+       advancedUrl = advancedUrl.replace(/&m=[a-z0-9]/, '');
+      window.location = advancedUrl;
+    }});
   });
 }

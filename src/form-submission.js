@@ -2,7 +2,8 @@ $('form[name="searchtool"], #searchCatalog').on('submit', function(e) {
   //pass through for other forms
   if (location.pathname === '/search/t' || location.search.indexOf('searchtype=t') !== -1 || location.pathname === '/search/d' || location.search.indexOf('searchtype=d') !== -1 ||
     location.pathname === '/search/a' || location.search.indexOf('searchtype=a') !== -1 || location.pathname === '/search/i' || location.search.indexOf('searchtype=i') !== -1 ||
-    location.pathname === '/search/c' || location.search.indexOf('searchtype=c') !== -1) {
+    location.pathname === '/search/c' || location.search.indexOf('searchtype=c') !== -1 || location.pathname === '/search/r' || location.pathname === '/search/p' ||
+    location.search.indexOf('searchtype=r') !== -1 || location.search.indexOf('searchtype=p') !== -1 || $('select[name="searchtype"]').val() === 'r' || $('select[name="searchtype"]').val() === 'p') {
     return true;
   }
   if (advancedUrl.indexOf('/exact') !== -1 || advancedUrl.indexOf('record=b') !== -1 || advancedUrl.indexOf('frameset') !== -1 || location.pathname === '/' || location.pathname === '/search' ||

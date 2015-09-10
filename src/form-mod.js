@@ -1,7 +1,16 @@
 //where all the fun begins
 //if it's a KW search result page
 $('form[name="searchtool"]').css({'text-align':'center'});
-if ((window.location.search.match(/(searchtype=X|\?\/X)/) && !window.location.search.match(/(frameset)|=%22|%28|%29/)) || window.location.href.indexOf('~S') !== -1 || window.location.href.indexOf('search/X') !== -1 && window.location.href.indexOf('frameset') === -1 && window.location.href.indexOf('aexact') === -1 && window.location.href.indexOf('indexsort') === -1 || window.location.pathname === '/search~S1') {
+if (
+  (window.location.search.match(/(searchtype=X|\?\/X)/) && !window.location.search.match(/(frameset)|=%22|%28|%29/)) ||
+  window.location.href.indexOf('~S') !== -1 ||
+  window.location.href.indexOf('search/X') !== -1 &&
+  window.location.href.indexOf('frameset') === -1 &&
+  window.location.href.indexOf('aexact') === -1 &&
+  window.location.href.indexOf('indexsort') === -1 ||
+  window.location.pathname === '/search~S1'
+  ) {
+    if ($('.reserveBibsArea').length === 0 && window.location.search.indexOf('searchtype=r') === -1 && window.location.search.indexOf('searchtype=p') === -1) {
   //hide stuffs
   $('form select#searchtype').hide();
   
@@ -70,6 +79,7 @@ if ((window.location.search.match(/(searchtype=X|\?\/X)/) && !window.location.se
       $('form[name="searchtool"]').submit();
     }
   });
+  }
   
 } else if (window.location.search.match(/\/browse|\/2browse/) && !window.location.search.match(/\?\/X/)) {
   

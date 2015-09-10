@@ -9,3 +9,13 @@ $('.browseEntry td:nth-of-type(2)').each(function() {
 });
 $('.browseHeader').append('<td><td><td>');
 $('.browseSuperEntry td').attr('colspan', 5);
+if ($('reserveBibsArea').length !== 0 ||
+  window.location.search.indexOf('searchtype=p') !== -1 ||
+  window.location.search.indexOf('searchtype=r') !== -1 ||
+  $('select[name="searchtype"]').val() === 'p' ||
+  $('select[name="searchtype"]').val() === 'r') {
+  $('#searchtype').show();
+}
+if ($('#bibTable').length > 0) {
+  $('#searchtype').hide();
+}
