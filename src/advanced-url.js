@@ -10,6 +10,10 @@ try{
       advancedUrl = $('.media-heading').eq(0).find('a').eq(1).attr('href').match(/^(\/.+?\/.+?)\//)[1];
     }
   }
+  //logged in and looking at patron view
+  if (advancedUrl.indexOf('/public') !== -1) {
+    advancedUrl = advancedUrl.substr(0, advancedUrl.indexOf('/X', advancedUrl.indexOf('/X') + 3));
+  }
   if (advancedUrl.indexOf('/exact') !== -1) {
     var match = advancedUrl.match(/&FF=.+?&/);
     if (match) {
@@ -24,3 +28,4 @@ try{
     advancedUrl = 'search~S1/X?a&searchscope=1&SORT=D';
   }
 }
+console.log(advancedUrl);

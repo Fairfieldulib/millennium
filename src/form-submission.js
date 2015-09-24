@@ -21,7 +21,7 @@ $('form[name="searchtool"], #searchCatalog').on('submit', function(e) {
   if (facet.toLowerCase() === 'call number') {
     return true;
   }
-  query = keywordQueryMod(values.searcharg, facet);
+  query = keywordQueryMod(encodeURIComponent(values.searcharg).replace(/%22/g, '"'), facet);
   advancedUrl = advancedUrl.replace(/\/X\?(.+?)&/, '\/X\?' + query + '&').replace(/\?\/X(.+?)&/, '\?\/X' + query + '&');
   advancedUrl = advancedUrl.replace(/searchscope=[0-9]/, 'searchscope=' + values.searchscope);
   advancedUrl = advancedUrl.replace(/search~S[0-9]/, 'search~S' + values.searchscope);
