@@ -28,4 +28,3 @@ try{
     advancedUrl = 'search~S1/X?a&searchscope=1&SORT=D';
   }
 }
-console.log(advancedUrl);
