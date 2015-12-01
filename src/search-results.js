@@ -126,7 +126,7 @@ if ($('.briefcitCell .media.well').length > 0) {
       link = link.replace(/&m=[a-z0-9]/, '');
     });
     $.ajax({
-      url: '//library2.fairfield.edu/millennium/result_count.php',
+      url: 'https://libraryapps.fairfield.edu/millennium/result_count.php',
       data: {
         base: link,
         materials: materials.join(','),
@@ -172,19 +172,27 @@ if ($('.briefcitCell .media.well').length > 0) {
     if ($before.val()) {
       advancedUrl = advancedUrl + '&Db=' + $before.val();
     }
+    if (ga.hasOwnProperty('loaded') && ga.loaded === true) {
     ga('send', 'event', 'facet', 'click', 'clear', {hitCallback: function() {
       window.location = advancedUrl;
     }});
+    } else {
+      window.location = advancedUrl;
+    }
   });
   
   $('#clear-facets').on('click', function() {
-    ga('send', 'event', 'facet', 'click', 'clear', {hitCallback: function() {
-      advancedUrl = advancedUrl.replace(/search~S[0-9]/, 'search~S1');
-      advancedUrl = advancedUrl.replace(/searchscope=[0-9]/, 'searchscope=1');
-      advancedUrl = advancedUrl.replace(/&Da=[0-9]{0,4}/, '');
-      advancedUrl = advancedUrl.replace(/&Db=[0-9]{0,4}/, '');
-       advancedUrl = advancedUrl.replace(/&m=[a-z0-9]/, '');
+    advancedUrl = advancedUrl.replace(/search~S[0-9]/, 'search~S1');
+    advancedUrl = advancedUrl.replace(/searchscope=[0-9]/, 'searchscope=1');
+    advancedUrl = advancedUrl.replace(/&Da=[0-9]{0,4}/, '');
+    advancedUrl = advancedUrl.replace(/&Db=[0-9]{0,4}/, '');
+    advancedUrl = advancedUrl.replace(/&m=[a-z0-9]/, '');
+    if (ga.hasOwnProperty('loaded') && ga.loaded === true) {
+      ga('send', 'event', 'facet', 'click', 'clear', {hitCallback: function() {
+        window.location = advancedUrl;
+      }});
+    } else {
       window.location = advancedUrl;
-    }});
+    }
   });
 }
