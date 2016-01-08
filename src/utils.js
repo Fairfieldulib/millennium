@@ -2,8 +2,10 @@
 function keywordQueryMod(query, facet) {
   var nearby = false;
   facet = facet === 'All' ? 'Keyword' : facet;
-  if (facet !== 'Keyword' && query.charAt(query.length - 1) !== '"') {
-    query = '"' + query + '"';
+  query = query.replace(/"/g, '%22');
+  var quoted = (query.indexOf('%22') !== -1);
+  if (facet !== 'Keyword' && !quoted) {
+    query = '%22' + query + '%22';
     nearby = true;
   }
   if (facet === 'Title' && nearby) {
@@ -11,7 +13,7 @@ function keywordQueryMod(query, facet) {
   } else if (facet === 'Title' && !nearby) {
     query = 't:(' + query + ')';
   } else if (facet === 'Author' && nearby) {
-    var authorWords = query.split(/[\s-]+/).length;
+    var authorWords = query.replace(/%20/g, ' ').split(/[\s-]+/).length;
     query = 'a:(' + query + '~' + authorWords + ')';
   } else if (facet === 'Author' && !nearby) {
     query = 'a:(' + query + ')';
