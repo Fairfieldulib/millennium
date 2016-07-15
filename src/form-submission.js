@@ -23,8 +23,27 @@ $('form[name="searchtool"], #searchCatalog').on('submit', function(e) {
   }
   query = keywordQueryMod(encodeURIComponent(values.searcharg).replace(/%22/g, '"'), facet);
   advancedUrl = advancedUrl.replace(/\/X\?(.+?)&/, '\/X\?' + query + '&').replace(/\?\/X(.+?)&/, '\?\/X' + query + '&');
-  advancedUrl = advancedUrl.replace(/searchscope=[0-9]/, 'searchscope=' + values.searchscope);
-  advancedUrl = advancedUrl.replace(/search~S[0-9]/, 'search~S' + values.searchscope);
+  if (advancedUrl.indexOf('dnlhack=true') !== -1) {
+    while (advancedUrl.indexOf('&m') !== -1 || advancedUrl.indexOf('&b') !== -1) {
+      advancedUrl = advancedUrl.replace(/&m=([a-zA-Z0-9])/g, '');
+      advancedUrl = advancedUrl.replace(/&b=([a-zA-Z0-9]+)/g, '');
+      advancedUrl = advancedUrl.replace('&dnlhack=true', '');
+    }
+  }
+  if (values.searchscope !== '3' && values.searchscope !== '4') {
+    advancedUrl = advancedUrl.replace(/searchscope=[0-9]/, 'searchscope=' + values.searchscope);
+    advancedUrl = advancedUrl.replace(/search~S[0-9]/, 'search~S' + values.searchscope);
+  } else {
+    advancedUrl = advancedUrl.replace(/searchscope=[0-9]/, 'searchscope=1');
+    advancedUrl = advancedUrl.replace(/search~S[0-9]/, 'search~S1');
+    if (groups[values.searchscope].mat.length > 0) {
+      advancedUrl = advancedUrl + '&m=' + groups[values.searchscope].mat.join('&m=');
+    }
+    if (groups[values.searchscope].loc.length > 0) {
+      advancedUrl = advancedUrl + '&b=' + groups[values.searchscope].loc.join('&b=');
+    }
+    advancedUrl += '&dnlhack=true';
+  }
   console.log(advancedUrl);
   window.location = advancedUrl;
   e.preventDefault();
