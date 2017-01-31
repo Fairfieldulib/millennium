@@ -14,7 +14,7 @@ var materials = [
 var groups = {
   '3': {
     mat: ['a'],
-    loc: ['stack', 'folio', 'curr', 'facau', 'popm', 'nwbk', 'sche', 'chcor']
+    loc: ['stack', 'folio', 'curr', 'facau', 'popm', 'nwbk', 'sche', 'chcor', 'lpd']
   },
   '4': {
     mat: ['3', '2', 'w'],
