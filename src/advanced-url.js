@@ -1,7 +1,7 @@
 //unify URLs
 var advancedUrl = window.location.href;
 try{
-  if (advancedUrl.indexOf('~') === -1 || advancedUrl.indexOf('searchtype') !== -1 || advancedUrl.indexOf('frameset') !== -1 || advancedUrl.indexOf('save=') !== -1) {
+  if (advancedUrl.indexOf('~') === -1 || advancedUrl.indexOf('searchtype') !== -1 || advancedUrl.indexOf('frameset') !== -1 || advancedUrl.indexOf('save=') !== -1 || advancedUrl.indexOf('#') !== -1) {
     if ($('a:contains(date)').length !== 0 && $('a:contains(date)').text() === 'date') {
       advancedUrl = $('a:contains(date)').attr('href').replace('=DX','=D');
     } else if ($('a:contains(relevance)').length !== 0) {
