@@ -21,3 +21,15 @@ $('.briefcitCell .media.well').each(
       $(this).prepend('<div class="media-type">Online</div>');
     }
 });
+
+//fix issn covers
+$('.media-jacket img').each(function() {
+  var $this = $(this);
+  var src = $this.attr('src');
+  var regex = /=([0-9]{4}-?[0-9X]{4})/;
+  var found = src.match(regex);
+  if (found) {
+    src = src.replace('isbn=', 'issn=');
+    $this.attr('src', src).parent('a').attr('href', $this.parent('a').attr('href').replace('isbn=', 'issn='));
+  }
+});
